@@ -2,7 +2,7 @@ window.onload = function() {
     window.gameWindow = document.getElementById("game-window");
     window.gameWindow.style.backgroundPosition = '0px 0px';
     window.car = document.getElementById("car");
-    window.moveCarStep = 243;
+    window.moveCarStep = 167;
 
     var travelSpeed = 1;
     var travelInterval = 10;
@@ -32,9 +32,10 @@ function travel(travelSpeed, interval) {
 }    
 
 function moveCar(lane) {
-    var carStyle = getComputedStyle(window.car, null)
+    var carStyle = getComputedStyle(window.car, null);
     var lastRight = parseInt(carStyle.getPropertyValue('right'), 10);
     var newRight = lastRight + lane * moveCarStep;
-    if ((newRight-77) % moveCarStep == 0 && (newRight-77) / moveCarStep <= 3 && (newRight-77) / moveCarStep >= 0)
+    if ( ((newRight-55) / moveCarStep) <= 4 && ((newRight-55) / moveCarStep) >= 0 ) {
         window.car.style.right = newRight + 'px';
+    }
 }
