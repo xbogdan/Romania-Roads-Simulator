@@ -13,6 +13,7 @@ html, body {
     width: 700px;
     height: 100%;
     margin: 0 auto;
+    overflow: hidden;
     background-image: url('../img/road-template.png');
     background-size: 700px;
     background-repeat: repeat-y;
@@ -21,11 +22,15 @@ html, body {
 #car {
     position: absolute;
     z-index: 9999999;
-    bottom: 30px;
+    bottom: 10px;
     left: 43.5%;
-    width: 90px;
-    height: 190px;
-    background: url('../img/car-top-view-hi.png');
+    width: 100px;
+    height: 215px;
+    background: url('../img/car1.png');
     background-repeat: no-repeat;
-    background-size: 90px;
+    background-size: 100px;
+}
+
+.obstacle {
+    position: absolute;
 }
