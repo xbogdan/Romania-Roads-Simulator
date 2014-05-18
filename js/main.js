@@ -13,7 +13,7 @@ window.onload = function() {
     window.gameWindow = document.getElementById("game-window");
     window.gameWindow.style.backgroundPosition = '0px 0px';
     window.car = document.getElementById("car");
-
+    window.carTop = parseInt(css(window.car, 'height'), 10) + parseInt(css(window.car, 'bottom'), 10);
     // set car position
     carLastPos = parseInt(css(window.car, 'left'), 10);
 
@@ -166,6 +166,21 @@ function moveObstacle(ob, travelSpeed, interval) {
     }, interval);
     var newBottom = oldBottom - travelSpeed;
     ob.style.bottom = newBottom + 'px';
+    checkCollision(ob);
+}
+
+
+/*
+* Checks if there is a collision between the car and an obstacle
+*/
+function checkCollision(ob) {
+    var obBottom = parseInt(css(ob, 'bottom'), 10);
+    var obLeft = parseInt(css(ob, 'left'), 10);
+    var obRight = parseInt(css(ob, 'left'), 10) + parseInt(css(ob, 'width'), 10);
+    carLeft = parseInt(css(window.car, 'left'), 10);
+    if (obBottom < window.carTop-20 && ( (obLeft > carLeft+20 && obLeft < carLeft+80) || (obRight > carLeft+20 && obRight < carLeft+80) ) ) {
+    }
+
 }
 
 
