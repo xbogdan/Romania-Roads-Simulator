@@ -1,25 +1,51 @@
+var travelSpeed = 5;
+var travelInterval = 10;
+var leftKey = false;
+var rightKey = false;
+var carLastPos = 0;
+var carMoveStep = 3;
+var carMoveAcc = 0;
 window.onload = function() {
     window.gameWindow = document.getElementById("game-window");
     window.gameWindow.style.backgroundPosition = '0px 0px';
     window.car = document.getElementById("car");
-    window.moveCarStep = 167;
-
-    var travelSpeed = 1;
-    var travelInterval = 10;
-
-    travel(travelSpeed, travelInterval);
+    carLastPos = parseInt(css(window.car, 'left'), 10);
     
-    document.onkeydown = function (e) {
-        e = e || window.event;
-        if (e.keyCode == 37) {
-            moveCar(1);
-        }
-        if (e.keyCode == 39) {
-            moveCar(-1);
-        }
-    };
+    travel(travelSpeed, travelInterval);    
+    
+    setInterval(updateKeys, 1);
 }
 
+
+window.onkeydown = function (e) {
+    e = e || e.window;
+    carMoveAcc += 0.1;
+    if (e.keyCode == 37) {
+        leftKey = true;
+    }
+    if (e.keyCode == 39) { 
+        rightKey = true;
+    }
+        
+}
+
+
+window.onkeyup = function (e) {
+    e = e || e.window;
+    carMoveAcc = 0;
+    if (e.keyCode == 37) {
+        leftKey = false;
+    }
+    if (e.keyCode == 39) { 
+        rightKey = false;
+    }
+
+}
+
+
+/*
+*
+*/
 function travel(travelSpeed, interval) {
     setTimeout(function() {
         travel(travelSpeed, interval);
@@ -29,13 +55,40 @@ function travel(travelSpeed, interval) {
     var lastPosY = parseInt(gameWindowPos[1], 10);
     var newPos = lastPosY + travelSpeed;
     window.gameWindow.style.backgroundPosition = lastPosX + 'px ' + newPos + 'px';
-}    
+}
 
-function moveCar(lane) {
-    var carStyle = getComputedStyle(window.car, null);
-    var lastRight = parseInt(carStyle.getPropertyValue('right'), 10);
-    var newRight = lastRight + lane * moveCarStep;
-    if ( ((newRight-55) / moveCarStep) <= 4 && ((newRight-55) / moveCarStep) >= 0 ) {
-        window.car.style.right = newRight + 'px';
+
+/*
+*
+*/
+function moveElement(element, travelSpeed, interval) {
+    setTimeout(function() {
+        moveElement(element, travelSpeed, interval);
+    }, interval);
+    var lastPosY = parseInt(element.style.bottom, 10);
+    var newPosY = lastPosY - travelSpeed;
+    element.style.bottom = newPosY + 'px';
+    return element;
+}
+
+
+/*
+* Updates car movement
+*/
+function updateKeys() {
+    if (leftKey) {
+        carLastPos -= carMoveStep + carMoveAcc;
     }
+    if (rightKey) {
+        carLastPos += carMoveStep + carMoveAcc;
+    }
+    window.car.style.left = carLastPos + 'px';
+}
+
+
+/*
+* Returns css property of a html element
+*/
+function css( element, property ) {
+    return window.getComputedStyle( element, null ).getPropertyValue( property );
 }

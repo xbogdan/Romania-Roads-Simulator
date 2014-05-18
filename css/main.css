@@ -22,7 +22,7 @@ html, body {
     position: absolute;
     z-index: 9999999;
     bottom: 30px;
-    right: 57px;
+    left: 43.5%;
     width: 90px;
     height: 190px;
     background: url('../img/car-top-view-hi.png');
