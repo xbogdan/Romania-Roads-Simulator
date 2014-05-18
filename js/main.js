@@ -1,4 +1,4 @@
-var travelSpeed = 10;
+var travelSpeed = 5;
 var travelInterval = 10;
 var leftKey = false;
 var rightKey = false;
@@ -145,7 +145,7 @@ function addRandomObstacles() {
     lastObstaclePos += 1;
     addObstacle();
     lastObstaclePos += 1;
-    setTimeout(addObstacle, random(500, 1500));
+    // setTimeout(addObstacle, random(3000, 6000));
     // addObstacle();
 }
 
