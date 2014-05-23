@@ -1,5 +1,5 @@
 var travelSpeed = 5;
-var travelInterval = 10;
+var travelInterval = 20;
 var leftKey = false;
 var rightKey = false;
 var carLastPos = 0;
@@ -13,7 +13,7 @@ window.onload = function() {
     window.gameWindow = document.getElementById("game-window");
     window.gameWindow.style.backgroundPosition = '0px 0px';
     window.car = document.getElementById("car");
-    window.carTop = parseInt(css(window.car, 'height'), 10) + parseInt(css(window.car, 'bottom'), 10);
+    // window.carTop = parseInt(css(window.car, 'height'), 10) + parseInt(css(window.car, 'bottom'), 10);
     // set car position
     carLastPos = parseInt(css(window.car, 'left'), 10);
 
@@ -60,14 +60,22 @@ window.onkeyup = function (e) {
 * Makes background move
 */
 function bgMovement(travelSpeed, interval) {
-    setTimeout(function() {
-        bgMovement(travelSpeed, interval);
+    // setTimeout(function() {
+    //     bgMovement(travelSpeed, interval);
+    // }, interval);
+    var x = 0; 
+    setInterval(function() {
+        var gameWindowPos = css(window.gameWindow, 'background-position').split(' ');
+        var lastPosX = parseInt(gameWindowPos[0], 10);
+        var lastPosY = parseInt(gameWindowPos[1], 10);
+        var newPos = lastPosY + travelSpeed;
+        window.gameWindow.style.backgroundPosition = lastPosX + 'px ' + newPos + 'px';
+        x++;
+        if (x == 100) {
+            updateScore(x/100);
+            x = 0;
+        }
     }, interval);
-    var gameWindowPos = css(window.gameWindow, 'background-position').split(' ');
-    var lastPosX = parseInt(gameWindowPos[0], 10);
-    var lastPosY = parseInt(gameWindowPos[1], 10);
-    var newPos = lastPosY + travelSpeed;
-    window.gameWindow.style.backgroundPosition = lastPosX + 'px ' + newPos + 'px';
 }
 
 
@@ -113,9 +121,6 @@ function createObstacle() {
     var imgStyle = element.style;
     imgStyle.position = 'absolute';
     var x = 100;
-    if (lastObstaclePos % 2) {
-        x += 50;
-    }
     imgStyle.bottom = x + '%';
     imgStyle.width = '90px';
     imgStyle.left = random(0, parseInt(css(window.gameWindow, 'width'), 10) - parseInt(imgStyle.width, 10) ) + 'px';
@@ -141,12 +146,8 @@ function addObstacle() {
 function addRandomObstacles() {
     setTimeout(function() {
         addRandomObstacles();
-    }, random(500, 1000));
-    lastObstaclePos += 1;
+    }, random(2000, 5000));
     addObstacle();
-    lastObstaclePos += 1;
-    // setTimeout(addObstacle, random(3000, 6000));
-    // addObstacle();
 }
 
 
@@ -155,18 +156,23 @@ function addRandomObstacles() {
 * and then removes it
 */
 function moveObstacle(ob, travelSpeed, interval) {
-    var oldBottom = parseInt(css(ob, 'bottom'), 10);
-    var height = parseInt(css(ob, 'height'), 10);
-    if (oldBottom <= -height) {
-        window.gameWindow.removeChild(ob);
-        return;
-    }
-    setTimeout(function() {
-        moveObstacle(ob, travelSpeed, interval);
+    var collision = false;
+    setInterval(function() {
+        var oldBottom = parseInt(css(ob, 'bottom'), 10);
+        var height = parseInt(css(ob, 'height'), 10);
+        if (oldBottom <= -height) {
+            window.gameWindow.removeChild(ob);
+            return;
+        }
+        var newBottom = oldBottom - travelSpeed;
+        ob.style.bottom = newBottom + 'px';
+        if (!collision) {
+            collision = checkCollision(ob);
+            if (collision) {
+                updateScore(-3);
+            }
+        }
     }, interval);
-    var newBottom = oldBottom - travelSpeed;
-    ob.style.bottom = newBottom + 'px';
-    checkCollision(ob);
 }
 
 
@@ -178,9 +184,25 @@ function checkCollision(ob) {
     var obLeft = parseInt(css(ob, 'left'), 10);
     var obRight = parseInt(css(ob, 'left'), 10) + parseInt(css(ob, 'width'), 10);
     carLeft = parseInt(css(window.car, 'left'), 10);
-    if (obBottom < window.carTop-20 && ( (obLeft > carLeft+20 && obLeft < carLeft+80) || (obRight > carLeft+20 && obRight < carLeft+80) ) ) {
-    }
+    carTop = parseInt(css(window.car, 'height'), 10) + parseInt(css(window.car, 'bottom'), 10);
+    carBottom = parseInt(css(window.car, 'bottom'), 10);
 
+    if ((obBottom < carTop-20) && (obBottom > carBottom+20) && ( (obLeft > carLeft+20 && obLeft < carLeft+80) || (obRight > carLeft+20 && obRight < carLeft+80) ) ) {
+        // document.getElementById('score-removed').style.display = 'block';
+        return true;
+    } else {
+        // setTimeout(function() {
+            // document.getElementById('score-removed').style.display = 'none';
+        // }, 5000);
+    }
+    return false;
+
+}
+
+
+function updateScore(addremove) {
+    var score = document.getElementById('score');
+    score.innerHTML = parseInt(score.innerHTML) + addremove;
 }
 
 
@@ -188,5 +210,5 @@ function checkCollision(ob) {
 * Return a random number between min and max
 */
 function random(min, max) {
-    return Math.floor((Math.random() * max) + min); 
+    return Math.floor((Math.random() * (max - min) + 1) + min); 
 }

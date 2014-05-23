@@ -34,3 +34,67 @@ html, body {
 .obstacle {
     position: absolute;
 }
+
+#score-box {
+    position: fixed;
+    top: 50px;
+    right: 50px;
+    border-radius: 10px;
+    border: 2px solid grey;
+    width: 100px;
+    padding: 10px;
+}
+#score-box #score-removed {
+    display: none;
+    color: red;
+}
+#signup {
+    width: 400px;
+    height: 400px;
+    margin: 50px auto 0 auto;
+    padding: 50px;
+    background-color: #fff;
+    border-radius: 15%;
+    box-shadow: 0 0px 21px -8px #2c2c2c;
+    color: #2c2c2c;
+}
+
+#signup #title {
+    font-size: 30px;
+    text-align: center;
+    color: #2c2c2c;
+}
+#signup input[type="text"] {
+    border: 0;
+    width: 400px;
+    border-radius: 0;
+    padding: 0;
+    margin: 0 0 10px 0;
+    height: 50px;
+    color: #2c2c2c;
+    font-size: 20px;
+    text-align: center;
+}
+#signup .opt {
+    font-size: 13px;
+    margin: 5px 0;
+}
+#signup .opt input{
+    padding: 0;
+    vertical-align: -2px;
+    margin: 0 6px 0 0;
+    border: 0;
+}
+#signup button[type="submit"] {
+    border: 0;
+    width: 400px;
+    border-radius: 0;
+    padding: 0;
+    margin: 20px 0 0 0;
+    height: 50px;
+    color: #2c2c2c;
+    font-size: 20px;
+    text-align: center;
+    background-color: lightblue;
+    color: white;
+}
