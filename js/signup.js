@@ -11,7 +11,7 @@ window.onload = function() {
             valid = false;
         }
         if (valid) {
-            var child = window.open('index.html');
+            var child = window.open('game.html');
             sendData(child, {name: name, email: email});
         } else {
             alert('Please complete all fields.');

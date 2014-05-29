@@ -186,14 +186,10 @@ function checkCollision(ob) {
     carLeft = parseInt(css(window.car, 'left'), 10);
     carTop = parseInt(css(window.car, 'height'), 10) + parseInt(css(window.car, 'bottom'), 10);
     carBottom = parseInt(css(window.car, 'bottom'), 10);
-
+    // console.log(carTop);
+    // console.log(obBottom);
     if ((obBottom < carTop-20) && (obBottom > carBottom+20) && ( (obLeft > carLeft+20 && obLeft < carLeft+80) || (obRight > carLeft+20 && obRight < carLeft+80) ) ) {
-        // document.getElementById('score-removed').style.display = 'block';
         return true;
-    } else {
-        // setTimeout(function() {
-            // document.getElementById('score-removed').style.display = 'none';
-        // }, 5000);
     }
     return false;
 
@@ -212,3 +208,11 @@ function updateScore(addremove) {
 function random(min, max) {
     return Math.floor((Math.random() * (max - min) + 1) + min); 
 }
+
+Math.randomBetween = function(min, max) {
+    return this.floor((this.random() * (max - min) + 1) + min);
+};
+var date = new Date();
+Date.prototype.method_name = function(first_argument) {
+    // body...
+};
