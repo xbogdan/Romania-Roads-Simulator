@@ -50,3 +50,9 @@
     background-color: lightblue;
     color: white;
 }
+#title {
+    width: auto;
+    margin: 0 auto;
+    margin-top: 20px;
+    display: block;
+}

@@ -13,6 +13,8 @@ window.onload = function() {
     window.gameWindow = document.getElementById("game-window");
     window.gameWindow.style.backgroundPosition = '0px 0px';
     window.car = document.getElementById("car");
+    window.time = document.getElementById('time');
+    window.startTime = new Date().getTime();
     // window.carTop = parseInt(css(window.car, 'height'), 10) + parseInt(css(window.car, 'bottom'), 10);
     // set car position
     carLastPos = parseInt(css(window.car, 'left'), 10);
@@ -27,6 +29,8 @@ window.onload = function() {
     setInterval(updateKeys, 10);
 
     addRandomObstacles();
+
+
 }
 
 
@@ -75,6 +79,7 @@ function bgMovement(travelSpeed, interval) {
             updateScore(x/100);
             x = 0;
         }
+        window.time.innerHTML = ((new Date().getTime() - window.startTime)/1000).toFixed(1);
     }, interval);
 }
 
@@ -123,7 +128,7 @@ function createObstacle() {
     var x = 100;
     imgStyle.bottom = x + '%';
     imgStyle.width = '90px';
-    imgStyle.left = random(0, parseInt(css(window.gameWindow, 'width'), 10) - parseInt(imgStyle.width, 10) ) + 'px';
+    imgStyle.left = Math.randomBetween(0, parseInt(css(window.gameWindow, 'width'), 10) - parseInt(imgStyle.width, 10) ) + 'px';
     return element;
 }
 
@@ -146,7 +151,7 @@ function addObstacle() {
 function addRandomObstacles() {
     setTimeout(function() {
         addRandomObstacles();
-    }, random(2000, 5000));
+    }, Math.randomBetween(2000, 5000));
     addObstacle();
 }
 
@@ -209,9 +214,12 @@ function random(min, max) {
     return Math.floor((Math.random() * (max - min) + 1) + min); 
 }
 
+
 Math.randomBetween = function(min, max) {
     return this.floor((this.random() * (max - min) + 1) + min);
 };
+
+
 var date = new Date();
 Date.prototype.method_name = function(first_argument) {
     // body...
