@@ -22,7 +22,7 @@ window.onload = function() {
     var context = canvas.getContext("2d");
 
     context.font="40px Georgia";
-    context.fillText("Driving simulator", 0, 40);
+    context.fillText(String("Driving simulator").toUpperCase(), 0, 40);
     
 };
 
