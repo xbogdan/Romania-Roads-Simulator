@@ -33,4 +33,3 @@ function sendData(child, data) {
         child.document.getElementById('email').innerHTML = data.email;
     }, 1000);
 }
-

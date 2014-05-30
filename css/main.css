@@ -62,5 +62,20 @@ html, body {
     padding-bottom: 7px;
     margin-bottom: 7px;
 }
-#time {
+
+
+#mouse-box {
+    position: absolute;
+    top: 70px;
+    left: 20px;
+    border-radius: 7px;
+    border: 1px solid grey;
+}
+#mouseX, #mouseY {
+    display: inline-block;
+}
+#mouseX {
+    /*border-bottom: 1px solid grey;*/
+    /*padding-bottom: 7px;*/
+    margin-bottom: 7px;
 }

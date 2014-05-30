@@ -59,6 +59,10 @@ window.onkeyup = function (e) {
 
 }
 
+document.onmousemove = function(e) {
+    document.getElementById('mouseX').innerHTML = e.clientX;
+    document.getElementById('mouseY').innerHTML = e.clientY;
+}
 
 /*
 * Makes background move
